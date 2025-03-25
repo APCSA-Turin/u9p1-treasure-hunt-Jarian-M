@@ -21,28 +21,41 @@ public class Player extends Sprite{
     //move method should override parent class, sprite
     @Override
     public void move(String direction) { //move the (x,y) coordinates of the player
-        if(direction.equals("a") && super.getX() > 0) {
+        if(direction.equals("a")) {
             super.setX(super.getX() - 1);
-        } else if(direction.equals("d") && super.getX() < 9) {
+        } else if(direction.equals("d")) {
             super.setX(super.getX() + 1);
-        } else if(direction.equals("s") && super.getY() > 0) {
+        } else if(direction.equals("s")) {
             super.setY(super.getX() - 1);
-        } else if(direction.equals("w") && super.getY() < 9) {
+        } else if(direction.equals("w")) {
             super.setY(super.getY() + 1);
-        } else {
-            System.out.println("Can't move out of bounds!");
         }
     }
 
 
     public void interact(int size, String direction, int numTreasures, Object obj) { // interact with an object in the position you are moving to 
     //numTreasures is the total treasures at the beginning of the game
+        if(getCoords().equals(obj.getCoords())) {
+            if(obj instanceof Enemy) {
+                numLives = numLives--;
+            } else if(obj instanceof Treasure) {
+                numTreasures--;
+                treasureCount = treasureCount++;
+            } else {
+                if(numTreasures = 0) {
+                    System.out.println("You ");
+                }
+            }
+        }
+
+
     }
 
 
     public boolean isValid(int size, String direction){ //check grid boundaries
-        if(super.getX() >= 0 && super.getX() <= 9) {
-            if(super.getY() >= 0 && super.getY() <= 9) {
+        move(direction);
+        if(super.getX() >= 0 && super.getX() <= size) {
+            if(super.getY() >= 0 && super.getY() <= size) {
                 return true;
             }
         }
