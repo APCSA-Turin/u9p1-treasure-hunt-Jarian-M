@@ -2,11 +2,15 @@ package com.example.project;
 
 //Enemy only need constructor and getCoords() getRowCol()
 public class Enemy extends Sprite { //child  of Sprite
-    
+    private String enemy;
     public Enemy(int x, int y) {
         super(x,y);
+        enemy = "🐢";
     }
 
+    public String getEnemy() {
+        return enemy;
+    }
 
     //the methods below should override the super class 
 

@@ -27,7 +27,6 @@ public class Sprite {
         return "[" + newX + "][" + y + "]";
     }
     
-
     public void move(String direction) { //you can leave this empty
         // Default behavior (can be overridden by subclasses)
     }
