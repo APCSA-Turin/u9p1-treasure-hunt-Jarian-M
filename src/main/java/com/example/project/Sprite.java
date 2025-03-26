@@ -23,7 +23,7 @@ public class Sprite {
     }
 
     public String getRowCol(int size){ //returns the row and column of the sprite -> "[row][col]"
-        int newX = 9 - x;
+        int newX = size - 1 - x;
         return "[" + newX + "][" + y + "]";
     }
     

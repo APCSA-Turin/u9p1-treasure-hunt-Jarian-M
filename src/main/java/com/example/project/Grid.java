@@ -8,9 +8,10 @@ public class Grid{
 
     public Grid(int size) { //initialize and create a grid with all DOT objects
         Sprite[][] grid = new Sprite[size][size];
-        for(Sprite[] row : grid) {
-            for(Sprite col : row) {
-                System.out.println("⬜");
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                Dot dot = new Dot(i, j);
+                grid[j][i] = dot;
             }
         }
     }
@@ -21,7 +22,7 @@ public class Grid{
 
 
     public void placeSprite(Sprite s){ //place sprite in new spot
-
+        
     }
 
     public void placeSprite(Sprite s, String direction) { //place sprite in a new spot based on direction

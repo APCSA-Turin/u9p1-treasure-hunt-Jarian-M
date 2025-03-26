@@ -10,6 +10,7 @@ public class Player extends Sprite{
         super(x,y);
         treasureCount = 0;
         numLives = 2;
+        win = false;
     }
 
 
