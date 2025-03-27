@@ -7,7 +7,7 @@ public class Player extends Sprite{
     private boolean win;
 
     public Player(int x, int y) { //set treasureCount = 0 and numLives = 2 
-        super(x, y, "🕺");
+        super(x, y);
         treasureCount = 0;
         numLives = 2;
         win = false;
@@ -26,7 +26,7 @@ public class Player extends Sprite{
         } else if(direction.equals("d")) {
             super.setX(super.getX() + 1);
         } else if(direction.equals("s")) {
-            super.setY(super.getX() - 1);
+            super.setY(super.getY() - 1);
         } else if(direction.equals("w")) {
             super.setY(super.getY() + 1);
         }
@@ -48,11 +48,11 @@ public class Player extends Sprite{
         }
         if(obj instanceof Enemy) {
             if(numLives > 0) {
-                numLives = numLives--;
+                numLives--;
             }
         } else if(obj instanceof Treasure) {
             numTreasures--;
-            treasureCount = treasureCount++;
+            treasureCount++;
         } else {
             if(numTreasures != 0) {
                 if(direction.equals("a")) {

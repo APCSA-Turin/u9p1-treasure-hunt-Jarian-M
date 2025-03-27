@@ -57,23 +57,25 @@ public class Game{
     public void initialize(){
 
         //to test, create a player, trophy, grid, treasure, and enemies. Then call placeSprite() to put them on the grid
-        Grid grid = new Grid(size);
         Player p1 = new Player(0, 0);
         Trophy trophy = new Trophy(0, 9);
-        Treasure t1 = new Treasure(0, 5);
-        Treasure t2 = new Treasure(3, 7);
-        Treasure t3 = new Treasure(8, 2);
-        Treasure[] treasures = {t1, t2, t3};
-        Enemy e1 = new Enemy(2, 3);
-        Enemy e2 = new Enemy(9, 4);
-        Enemy e3 = new Enemy(1, 8);
-        Enemy e4 = new Enemy(5, 5);
-        Enemy[] enemies = {e1, e2, e3, e4};
+
+        treasures[0] = new Treasure(0, 5);
+        treasures[1] = new Treasure(3, 7);
+        treasures[2] = new Treasure(8, 2);
+
+        enemies[0] = new Enemy(2, 3);
+        enemies[1] = new Enemy(9, 4);
+        enemies[2] = new Enemy(1, 8);
+        enemies[3] = new Enemy(5, 5);
+
         grid.placeSprite(p1);
         grid.placeSprite(trophy);
+
         for(Treasure t : treasures) {
             grid.placeSprite(t);
         }
+        
         for(Enemy e : enemies) {
             grid.placeSprite(e);
         }

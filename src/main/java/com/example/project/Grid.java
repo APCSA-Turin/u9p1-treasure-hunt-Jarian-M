@@ -8,7 +8,7 @@ public class Grid{
 
     public Grid(int size) { //initialize and create a grid with all DOT objects
         this.size = size;
-        Sprite[][] grid = new Sprite[size][size];
+        this.grid = new Sprite[size][size];
 
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
@@ -40,8 +40,19 @@ public class Grid{
     public void display() { //print out the current grid to the screen 
         for(Sprite[] row : grid) {
             for(Sprite col : row) {
-                System.out.println(col.getEmoji());
+                if(col instanceof Trophy) {
+                    System.out.print("🌟");
+                } else if(col instanceof Player) {
+                    System.out.print("🕺");
+                } else if(col instanceof Enemy) {
+                    System.out.print("🐢");
+                } else if(col instanceof Treasure) {
+                    System.out.print("🍄");
+                } else if(col instanceof Dot) {
+                    System.out.print("🟥");
+                }
             }
+            System.out.println();
         }
     }
     
