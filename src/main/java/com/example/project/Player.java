@@ -5,24 +5,18 @@ public class Player extends Sprite{
     private int treasureCount;
     private int numLives;
     private boolean win;
-    private String player;
 
     public Player(int x, int y) { //set treasureCount = 0 and numLives = 2 
-        super(x,y);
+        super(x, y, "🕺");
         treasureCount = 0;
         numLives = 2;
         win = false;
-        player = "🕺";
     }
 
 
     public int getTreasureCount(){return treasureCount;}
     public int getLives(){return numLives;}
     public boolean getWin(){return win;}
-
-    public String getPlayer() {
-        return player;
-    }
 
     //move method should override parent class, sprite
     @Override
@@ -43,8 +37,6 @@ public class Player extends Sprite{
     //numTreasures is the total treasures at the beginning of the game
         int row = size - 1 - super.getY();
         int col = super.getX();
-        int objRow = size - 1 - obj.getY();
-        int objCol = obj.getX();
         if(direction.equals("a")) {
             col--;
         } else if(direction.equals("d")) {
@@ -54,29 +46,23 @@ public class Player extends Sprite{
         } else if(direction.equals("w")) {
             row++;
         }
-        if(row == objRow && col == objCol) {
-            if(obj instanceof Enemy) {
-                if(numLives > 0) {
-                    numLives = numLives--;
-                } else {
-                    grid.gameover();
-                }
-            } else if(obj instanceof Treasure) {
-                numTreasures--;
-                treasureCount = treasureCount++;
-            } else {
-                if(numTreasures = 0) {
-                    grid.win();
-                } else {
-                    if(direction.equals("a")) {
-                        col++;
-                    } else if(direction.equals("d")) {
-                        col--;
-                    } else if(direction.equals("s")) {
-                        row++;
-                    } else if(direction.equals("w")) {
-                        row--;
-                    }
+        if(obj instanceof Enemy) {
+            if(numLives > 0) {
+                numLives = numLives--;
+            }
+        } else if(obj instanceof Treasure) {
+            numTreasures--;
+            treasureCount = treasureCount++;
+        } else {
+            if(numTreasures != 0) {
+                if(direction.equals("a")) {
+                    col++;
+                } else if(direction.equals("d")) {
+                    col--;
+                } else if(direction.equals("s")) {
+                    row++;
+                } else if(direction.equals("w")) {
+                    row--;
                 }
             }
         }

@@ -10,6 +10,14 @@ public class Game{
     private int size; 
 
     public Game(int size){ //the constructor should call initialize() and play()
+        this.size = size;
+        grid = new Grid(size);
+        player = new Player(0, 0);
+        enemies = new Enemy[4];
+        treasures = new Treasure[3];
+        trophy = new Trophy(0, size - 1);
+        initialize();
+        grid.display();
     }
 
     public static void clearScreen() { //do not modify
@@ -31,7 +39,7 @@ public class Game{
     public void play(){ //write your game logic here
         Scanner scanner = new Scanner(System.in);
 
-
+        grid.display();
         while(true){
             try {
                 Thread.sleep(100); // Wait for 1/10 seconds
@@ -41,7 +49,7 @@ public class Game{
             clearScreen(); // Clear the screen at the beggining of the while loop
 
      
-            }
+        }
             
      
     }
@@ -49,10 +57,29 @@ public class Game{
     public void initialize(){
 
         //to test, create a player, trophy, grid, treasure, and enemies. Then call placeSprite() to put them on the grid
-   
+        Grid grid = new Grid(size);
+        Player p1 = new Player(0, 0);
+        Trophy trophy = new Trophy(0, 9);
+        Treasure t1 = new Treasure(0, 5);
+        Treasure t2 = new Treasure(3, 7);
+        Treasure t3 = new Treasure(8, 2);
+        Treasure[] treasures = {t1, t2, t3};
+        Enemy e1 = new Enemy(2, 3);
+        Enemy e2 = new Enemy(9, 4);
+        Enemy e3 = new Enemy(1, 8);
+        Enemy e4 = new Enemy(5, 5);
+        Enemy[] enemies = {e1, e2, e3, e4};
+        grid.placeSprite(p1);
+        grid.placeSprite(trophy);
+        for(Treasure t : treasures) {
+            grid.placeSprite(t);
+        }
+        for(Enemy e : enemies) {
+            grid.placeSprite(e);
+        }
     }
 
     public static void main(String[] args) {
-        
+        Game game = new Game(10);
     }
 }

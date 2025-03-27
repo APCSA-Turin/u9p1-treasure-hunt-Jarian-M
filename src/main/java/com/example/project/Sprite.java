@@ -2,10 +2,12 @@ package com.example.project;
 
 public class Sprite {
     private int x, y;
+    private String emoji;
 
-    public Sprite(int x, int y) {
+    public Sprite(int x, int y, String emoji) {
         this.x = x;
         this.y = y;
+        this.emoji = emoji;
     }
 
     public int getX(){return x;}//placeholder
@@ -25,6 +27,10 @@ public class Sprite {
     public String getRowCol(int size){ //returns the row and column of the sprite -> "[row][col]"
         int newX = size - 1 - x;
         return "[" + newX + "][" + y + "]";
+    }
+
+    public String getEmoji() {
+        return emoji;
     }
     
     public void move(String direction) { //you can leave this empty
