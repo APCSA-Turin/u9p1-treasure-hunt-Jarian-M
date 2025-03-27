@@ -28,7 +28,7 @@ public class Player extends Sprite{
     public String getRowCol(int size) {
         return "Player:" + super.getRowCol(size);
     }
-    
+
     public void move(String direction) { //move the (x,y) coordinates of the player
         if(direction.equals("a")) {
             super.setX(super.getX() - 1);
@@ -81,8 +81,20 @@ public class Player extends Sprite{
     public boolean isValid(int size, String direction){ //check grid boundaries
         int row = size - 1 - super.getY();
         int col = super.getX();
-        if(col >= 0 && col < size) {
-            if(row >= 0 && row < size) {
+        if(direction.equals("a")) {
+            if(col > 0) {
+                return true;
+            }
+        } else if(direction.equals("d")) {
+            if(col < size - 1) {
+                return true;
+            }
+        } else if(direction.equals("s")) {
+            if(row < size - 1) {
+                return true;
+            }
+        } else if(direction.equals("w")) {
+            if(row > 0) {
                 return true;
             }
         }
