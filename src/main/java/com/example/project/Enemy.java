@@ -10,11 +10,11 @@ public class Enemy extends Sprite { //child  of Sprite
 
     @Override
     public String getCoords(){ //returns "Enemy:"+coordinates
-        return "Enemy: " + super.getCoords();
+        return "Enemy:" + super.getCoords();
     }
 
 
     public String getRowCol(int size){ //return "Enemy:"+row col
-        return "Enemy: " + super.getRowCol(size);
+        return "Enemy:" + super.getRowCol(size);
     }
 }

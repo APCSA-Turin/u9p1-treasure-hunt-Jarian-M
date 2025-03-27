@@ -20,6 +20,15 @@ public class Player extends Sprite{
 
     //move method should override parent class, sprite
     @Override
+
+    public String getCoords() {
+        return "Player:" + super.getCoords();
+    }
+
+    public String getRowCol(int size) {
+        return "Player:" + super.getRowCol(size);
+    }
+    
     public void move(String direction) { //move the (x,y) coordinates of the player
         if(direction.equals("a")) {
             super.setX(super.getX() - 1);
