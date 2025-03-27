@@ -32,6 +32,8 @@ public class Grid{
     public void placeSprite(Sprite s, String direction) { //place sprite in a new spot based on direction
         int y = s.getY();
         int x = s.getX();
+        Dot dot = new Dot(x, y);
+        grid[size - 1 - y][x] = dot;
         s.move(direction);
         grid[size - 1 - y][x] = s;
     }
@@ -54,6 +56,7 @@ public class Grid{
             }
             System.out.println();
         }
+        
     }
     
     public void gameover(){ //use this method to display a loss

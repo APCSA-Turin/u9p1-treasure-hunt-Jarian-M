@@ -44,17 +44,6 @@ public class Player extends Sprite{
 
     public void interact(int size, String direction, int numTreasures, Object obj) { // interact with an object in the position you are moving to 
     //numTreasures is the total treasures at the beginning of the game
-        int row = size - 1 - super.getY();
-        int col = super.getX();
-        if(direction.equals("a")) {
-            col--;
-        } else if(direction.equals("d")) {
-            col++;
-        } else if(direction.equals("s")) {
-            row--;
-        } else if(direction.equals("w")) {
-            row++;
-        }
         if(obj instanceof Enemy) {
             if(numLives > 0) {
                 numLives--;
@@ -62,17 +51,19 @@ public class Player extends Sprite{
         } else if(obj instanceof Treasure) {
             numTreasures--;
             treasureCount++;
-        } else {
+        } else if(obj instanceof Trophy) {
             if(numTreasures != 0) {
                 if(direction.equals("a")) {
-                    col++;
+                    super.setX(super.getX() + 1);
                 } else if(direction.equals("d")) {
-                    col--;
+                    super.setX(super.getX() - 1);
                 } else if(direction.equals("s")) {
-                    row++;
+                    super.setY(super.getY() + 1);
                 } else if(direction.equals("w")) {
-                    row--;
+                    super.setY(super.getY() - 1);
                 }
+            } else {
+                win = true;
             }
         }
     }
