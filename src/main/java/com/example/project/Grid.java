@@ -32,13 +32,13 @@ public class Grid{
     public void placeSprite(Sprite s, String direction) { //place sprite in a new spot based on direction
         placeSprite(s);
         if(direction.equals("a")) {
-            grid[size - 1 - s.getY()][s.getX() + 1] = new Dot(s.getX() + 1, s.getY());
+            placeSprite(new Dot(s.getX() + 1, s.getY()));
         } else if(direction.equals("d")) {
-            grid[size - 1 - s.getY()][s.getX() - 1] = new Dot(s.getX() - 1, s.getY());
+            placeSprite(new Dot(s.getX() - 1, s.getY()));
         } else if(direction.equals("s")) {
-            grid[size - s.getY()][s.getX()] = new Dot(s.getX(), s.getY() + 1);
+            placeSprite(new Dot(s.getX(), s.getY() + 1));
         } else if(direction.equals("w")) {
-            grid[size - 2 - s.getY()][s.getX()] = new Dot(s.getX(), s.getY() - 1);
+            placeSprite(new Dot(s.getX(), s.getY() - 1));
         }
     }
 

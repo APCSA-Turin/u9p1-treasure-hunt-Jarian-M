@@ -1,4 +1,5 @@
 package com.example.project;
+
 import java.util.Scanner;
 
 public class Game{
@@ -62,6 +63,8 @@ public class Game{
             int originalY = player.getY();
 
             player.move(direction);
+            //grid.placeSprite(new Dot(originalX, originalY));
+            grid.placeSprite(player, direction);
 
             if(player.getX() == trophy.getX() && player.getY() == trophy.getY()) {
                 if(player.getTreasureCount() < treasures.length) {
@@ -83,8 +86,6 @@ public class Game{
                     break;
                 }
             }
-            grid.placeSprite(new Dot(originalX, originalY));
-            grid.placeSprite(player);
 
             for(Treasure treasure : treasures) {
                 if(player.getX() == treasure.getX() && player.getY() == treasure.getY()) {
