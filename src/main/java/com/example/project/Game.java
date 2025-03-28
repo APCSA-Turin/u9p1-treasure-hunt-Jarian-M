@@ -39,18 +39,78 @@ public class Game{
     public void play(){ //write your game logic here
         Scanner scanner = new Scanner(System.in);
 
-        grid.display();
-        player.getCoords();
-        player.getRowCol(size);
-        System.out.println("Treasure Collected: " + player.getTreasureCount());
-        System.out.println("Lives remaining: " + player.getLives());
-        System.out.println("Enter a direction (w, a, s, d) or \"q\" to exit:");
-        String direction = scanner.nextLine();
-        while(!direction.equals("q")){
+        while(true){
+            grid.display();
+            player.getCoords();
+            player.getRowCol(size);
+            System.out.println("Treasure Collected: " + player.getTreasureCount());
+            System.out.println("Lives remaining: " + player.getLives());
+            System.out.println("Enter a direction (w, a, s, d) or \"q\" to exit:");
+            String direction = scanner.nextLine();
+
+            if(direction.equals("q")) {
+                System.out.println("Come on! Don't rage quit! You got this!");
+                break;
+            }
+
+            if(!player.isValid(size, direction)) {
+                System.out.println("Move is invalid, please try a different direction");
+                continue;
+            }
+
+            int originalX = player.getX();
+            int originalY = player.getY();
+
+            player.move(direction);
+
+            if(player.getX() == trophy.getX() && player.getY() == trophy.getY()) {
+                if(player.getTreasureCount() < treasures.length) {
+                    System.out.println("You must collect all the treasures before you can collect the Trophy");
+                    player.setX(originalX);
+                    player.setY(originalY);
+                    continue;
+                } else {
+                    player.interact(size, direction, treasures.length, trophy);
+                    grid.placeSprite(player);
+                    grid.placeSprite(new Dot(originalX, originalY));
+                    grid.winDisplay();
+                    player.getCoords();
+                    player.getRowCol(size);
+                    System.out.println("Treasure Collected: " + player.getTreasureCount());
+                    System.out.println("Lives remaining: " + player.getLives());
+                    grid.win();
+                    System.out.println(player.getWin());
+                    break;
+                }
+            }
+            grid.placeSprite(new Dot(originalX, originalY));
+            grid.placeSprite(player);
+
+            for(Treasure treasure : treasures) {
+                if(player.getX() == treasure.getX() && player.getY() == treasure.getY()) {
+                    player.interact(size, direction, treasures.length, treasure);
+                }
+            }
+
+            for(Enemy enemy : enemies) {
+                if(player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
+                    player.interact(size, direction, treasures.length, enemy);
+                    grid.placeSprite(new Dot(originalX, originalY));
+                    if(player.getLives() <= 0) {
+                        clearScreen();
+                        grid.loseDisplay();
+                        player.getCoords();
+                        player.getRowCol(size);
+                        System.out.println("Treasure Collected: " + player.getTreasureCount());
+                        System.out.println("Lives remaining: " + player.getLives());
+                        grid.gameover();
+                        return;
+                    }
+                }
+            }
+            
             try {
-                Thread.sleep(100); // Wait for 1/10 seconds
-                
-                
+                Thread.sleep(100); // Wait for 1/100 seconds
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -58,7 +118,6 @@ public class Game{
 
      
         }
-            
      
     }
 

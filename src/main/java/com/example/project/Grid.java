@@ -30,12 +30,16 @@ public class Grid{
     }
 
     public void placeSprite(Sprite s, String direction) { //place sprite in a new spot based on direction
-        int y = s.getY();
-        int x = s.getX();
-        Dot dot = new Dot(x, y);
-        grid[size - 1 - y][x] = dot;
-        s.move(direction);
-        grid[size - 1 - y][x] = s;
+        placeSprite(s);
+        if(direction.equals("a")) {
+            grid[size - 1 - s.getY()][s.getX() + 1] = new Dot(s.getX() + 1, s.getY());
+        } else if(direction.equals("d")) {
+            grid[size - 1 - s.getY()][s.getX() - 1] = new Dot(s.getX() - 1, s.getY());
+        } else if(direction.equals("s")) {
+            grid[size - s.getY()][s.getX()] = new Dot(s.getX(), s.getY() + 1);
+        } else if(direction.equals("w")) {
+            grid[size - 2 - s.getY()][s.getX()] = new Dot(s.getX(), s.getY() - 1);
+        }
     }
 
 
@@ -57,6 +61,32 @@ public class Grid{
             System.out.println();
         }
         
+    }
+
+    public void winDisplay() {
+        for(Sprite[] row : grid) {
+            for(Sprite col : row) {
+                if(col instanceof Player) {
+                    System.out.print("🕺");
+                } else {
+                    System.out.print("👑");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void loseDisplay() {
+        for(Sprite[] row : grid) {
+            for(Sprite col : row) {
+                if(col instanceof Player) {
+                    System.out.print("🕺");
+                } else {
+                    System.out.print("👾");
+                }
+            }
+            System.out.println();
+        }
     }
     
     public void gameover(){ //use this method to display a loss
