@@ -18,6 +18,10 @@ public class Player extends Sprite{
     public int getLives(){return numLives;}
     public boolean getWin(){return win;}
 
+    public void setTreasureCount(int newCount) {
+        treasureCount = newCount;
+    }
+
     public void setLives(int newLives){numLives = newLives;}
 
     //move method should override parent class, sprite
@@ -55,7 +59,10 @@ public class Player extends Sprite{
                 numLives--;
             } 
         } else if(obj instanceof Treasure) {
-            treasureCount++;
+            if(!((Treasure)obj).getCollected()) {
+                treasureCount++;
+                ((Treasure)obj).setCollected(true);
+            }
         }
     }
 

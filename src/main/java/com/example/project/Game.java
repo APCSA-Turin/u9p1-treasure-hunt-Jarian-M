@@ -13,9 +13,10 @@ public class Game{
     private int numEnemies;
     private int numLives;
     private int numTreasures;
+    private int originalSize;
 
     public Game(int size){ //the constructor should call initialize() and play()
-        this.size = size;
+        originalSize = size;
         player = new Player(0, 0);
         numEnemies = 4;
         numLives = 2;
@@ -66,7 +67,6 @@ public class Game{
             int originalY = player.getY();
 
             player.move(direction);
-            //grid.placeSprite(new Dot(originalX, originalY));
             grid.placeSprite(player, direction);
 
             if(player.getX() == trophy.getX() && player.getY() == trophy.getY()) {
@@ -87,8 +87,18 @@ public class Game{
                     System.out.println("Treasure Collected: " + player.getTreasureCount());
                     System.out.println("Lives remaining: " + player.getLives());
                     grid.win();
-                    System.out.println(player.getWin());
-                    break;
+                    System.out.println("Would you like to play again?");
+                    String again = scanner.nextLine();
+                    if(again.equals("yes")) {
+                        clearScreen();
+                        player = new Player(0, 0);
+                        numEnemies = 4;
+                        numLives = 2;
+                        numTreasures = 3;
+                        initialize();
+                    } else if(again.equals("no")){
+                        break;
+                    }
                 }
             }
 
@@ -110,7 +120,18 @@ public class Game{
                         System.out.println("Treasure Collected: " + player.getTreasureCount());
                         System.out.println("Lives remaining: " + player.getLives());
                         grid.gameover();
-                        return;
+                        System.out.println("Would you like to play again?");
+                        String again = scanner.nextLine();
+                        if(again.equals("yes")) {
+                            clearScreen();
+                            player = new Player(0, 0);
+                            numEnemies = 4;
+                            numLives = 2;
+                            numTreasures = 3;
+                            initialize();
+                        } else if(again.equals("no")){
+                            return;
+                        }
                     }
                 }
             }
@@ -128,19 +149,20 @@ public class Game{
     }
 
     public void difficulty(String difficulty) {
+        size = originalSize;
         if(difficulty.equals("easy")) {
-            this.size = this.size * 2;
+            size = originalSize * 2;
             numEnemies = numEnemies / 2;
             numLives = numLives * 2;
         } else if(difficulty.equals("medium")) {
             player.setLives(numLives);
         } else if(difficulty.equals("hard")) {
-            this.size = this.size / 2;
+            size = originalSize / 2;
             numEnemies = numEnemies + 1;
             numLives = numLives / 2;
         }
 
-        grid = new Grid(this.size);
+        grid = new Grid(size);
         enemies = new Enemy[numEnemies];
         player.setLives(numLives);
     }
@@ -156,33 +178,31 @@ public class Game{
 
         Random rand = new Random();
 
-        treasures = new Treasure[numTreasures];
-
-        for(int i = 0; i < numTreasures; i++) {
-            treasures[i] = new Treasure(rand.nextInt(size), rand.nextInt(size));
-            while(grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Player || grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Enemy || grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Trophy) {
-                treasures[i] = new Treasure(rand.nextInt(size), rand.nextInt(size));
-            }
-        }
-
         trophy = new Trophy(0, size - 1);
 
         grid.placeSprite(player);
         grid.placeSprite(trophy);
 
-        for(Treasure t : treasures) {
-            grid.placeSprite(t);
-        }
+        treasures = new Treasure[numTreasures];
 
-        for(int i = 0; i < numEnemies; i++) {
-            enemies[i] = new Enemy(rand.nextInt(size), rand.nextInt(size));
-            while(grid.getGrid()[size - 1 - enemies[i].getY()][enemies[i].getX()] instanceof Player || grid.getGrid()[size - 1 - enemies[i].getY()][enemies[i].getX()] instanceof Treasure) {
-                enemies[i] = new Enemy(rand.nextInt(size), rand.nextInt(size));
+        for(int i = 0; i < numTreasures; i++) {
+            treasures[i] = new Treasure(rand.nextInt(size), rand.nextInt(size));
+            while(grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Player 
+            || grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Enemy
+            || grid.getGrid()[size - 1 - treasures[i].getY()][treasures[i].getX()] instanceof Treasure) {
+                treasures[i] = new Treasure(rand.nextInt(size), rand.nextInt(size));
             }
+            grid.placeSprite(treasures[i]);
         }
         
-        for(Enemy e : enemies) {
-            grid.placeSprite(e);
+        for(int i = 0; i < numEnemies; i++) {
+            enemies[i] = new Enemy(rand.nextInt(size), rand.nextInt(size));
+            while(grid.getGrid()[size - 1 - enemies[i].getY()][enemies[i].getX()] instanceof Player
+            || grid.getGrid()[size - 1 - enemies[i].getY()][enemies[i].getX()] instanceof Treasure
+            || grid.getGrid()[size - 1 - enemies[i].getY()][enemies[i].getX()] instanceof Enemy) {
+                enemies[i] = new Enemy(rand.nextInt(size), rand.nextInt(size));
+            }
+            grid.placeSprite(enemies[i]);
         }
     }
 
